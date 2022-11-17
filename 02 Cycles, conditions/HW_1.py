@@ -21,6 +21,7 @@ for drone in drone_list:
 #1) DJI и Dji - это один и тот же производитель! такие случаи тоже должны обрабатываться
 #2) при выводе исправьте название производителя, если допущена ошибка. правильный вариант названия: DJI, Autel
 
+count = 0
 company_name = input().lower().strip()
 for drone in drone_list:
   drone = drone.strip().split()
@@ -28,6 +29,8 @@ for drone in drone_list:
   if drone[0] == company_name:
     drone[0] = drone[0].upper() if drone[0] == "dji" else drone[0].capitalize()
     print(" ".join(drone))
+    count += 1
+print(f"\nКоличество дронов: {count}\n")
 
 #TODO2
 #подсчитайте количество моделей дронов каждого производителя из списка drone_list. производители: DJI, Autel, Parrot, Ryze, Eachine
