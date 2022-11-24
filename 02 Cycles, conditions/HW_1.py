@@ -73,22 +73,30 @@ print(f"\nCount: {count}\n")
 #высота 100 м, полет над населенным пунктом, вне закрытых зон, в прямой видимости
 #помните, что для дронов тяжелее 150 г согласовывать полет над населенным пунктом - обязательно!
 
-drone_height_list = [77, 120, 111, 99, 100, 140, 88, 91, 71, 102, 84, 98, 99]
-drone_locality_list = [True, True, False, False, True, True, False, False, True, True, False, True, False]
+height = 100
+isLocality = True
+isZoneClosed = False
+isVisible = True
 
-for drone, weight, height, locality in zip(drone_list,  drone_weight_list, drone_height_list, drone_locality_list):
-  if weight <= 150:
-    if height > 100:
-      res = "cогласование нужно, тк высота более 100 м"
-    elif locality == True:
-      res = "cогласование нужно, тк полет над населенным пунктом"
-    else:
-      res = "cогласование не нужно"
-
+for drone, weight in zip(drone_list,  drone_weight_list):
+  if weight > 150:
+    print(f"{format(drone)} требует согласования полёта: [вес дрона более 150 г].\n")
+    continue
   else:
-    res = "cогласование нужно, тк вес более 150 г"
+    res = []
+    if height > 150:
+      res.append("[высота полета более 150 м]")
+    if isLocality:
+      res.append("[полет над населенным пунктом]")
+    if isZoneClosed:
+      res.append("[полет в закрытой зоне]")
+    if not isVisible:
+      res.append("[полет не в прямой видимости]")
 
-  print(f"Дрон ({drone}) с весом ({weight}), требованием по высоте ({height}) и необходимостью пролета над нас.пунктом ({locality})\nРезультат: {res}\n")
+    if res.count == 0:
+      print(f"{format(drone)} не требует согласования полёта.\n")
+    else:
+      print(f"{format(drone)} требует согласования полёта:", ", ".join(res), "\n")
 
 #TODO5*
 #модифицируйте решение задания TODO1:
