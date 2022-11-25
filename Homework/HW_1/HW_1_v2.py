@@ -79,24 +79,10 @@ isZoneClosed = False
 isVisible = True
 
 for drone, weight in zip(drone_list,  drone_weight_list):
-  if weight > 150:
-    print(f"{format(drone)} требует согласования полёта: [вес дрона более 150 г].\n")
-    continue
-  else:
-    res = []
-    if height > 150:
-      res.append("[высота полета более 150 м]")
-    if isLocality:
-      res.append("[полет над населенным пунктом]")
-    if isZoneClosed:
-      res.append("[полет в закрытой зоне]")
-    if not isVisible:
-      res.append("[полет не в прямой видимости]")
-
-    if res.count == 0:
-      print(f"{format(drone)} не требует согласования полёта.\n")
+    if weight < 150 or not isLocality and height < 150 and not isZoneClosed and isVisible:
+        print(f"{format(drone)} не требует согласования полёта")
     else:
-      print(f"{format(drone)} требует согласования полёта:", ", ".join(res), "\n")
+        print(f"{format(drone)} требует согласования полёта")
 
 #TODO5*
 #модифицируйте решение задания TODO1:
